@@ -1,26 +1,33 @@
-package com.klu;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-@Entity
-@Table(name = "student")
-public class Student {
-    @Id
-    private int id;
-    private String name;
-    private String dept;
+package com.klu.model;
 
-    public Student() {}
-    public Student(int id, String name, String dept) {
-        this.id = id;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Student {
+
+    private int studentId;
+    private String name;
+    private String course;
+    private int year;
+
+    // Constructor Injection
+    public Student(
+        @Value("${student.id}") int studentId,
+        @Value("${student.name}") String name,
+        @Value("${student.course}") String course,
+        @Value("${student.year}") int year
+    ) {
+        this.studentId = studentId;
         this.name = name;
-        this.dept = dept;
+        this.course = course;
+        this.year = year;
     }
-    // Getters and Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-    public String getDept() { return dept; }
-    public void setDept(String dept) { this.dept = dept; }
+
+    public void display() {
+        System.out.println("Student ID : " + studentId);
+        System.out.println("Name       : " + name);
+        System.out.println("Course     : " + course);
+        System.out.println("Year       : " + year);
+    }
 }
